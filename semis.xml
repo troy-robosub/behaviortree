@@ -1,0 +1,125 @@
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <SequenceStar name="CourseSequence">
+            <RetryUntilSuccesful num_attempts="99999" name="FindGateRepeater">
+                <Sequence name="FindGate">
+                    <Action time="5" ID="MoveForward"/>
+                    <Action ID="FindGateDetector"/>
+                    <Action heading="0" ID="AdjustHeading"/>
+                    <Sequence name="StyleTask">
+                        <Condition distance="2" ID="CheckDistance" name="CheckDistanceFromGate"/>
+                        <Repeat num_cycles="2">
+                            <Action ID="Spin360"/>
+                        </Repeat>
+                    </Sequence>
+                </Sequence>
+            </RetryUntilSuccesful>
+            <RetryUntilSuccesful num_attempts="99999" name="EnterGateRepeater">
+                <Fallback name="EnterGateFallback">
+                    <Sequence>
+                        <Action heading="0" ID="FindSymbol"/>
+                        <Action heading="0" ID="AdjustHeading"/>
+                        <Action ID="AdjustAltitude"/>
+                        <Action time="10" ID="MoveForward"/>
+                    </Sequence>
+                    <Action heading="15" ID="AdjustHeading"/>
+                </Fallback>
+            </RetryUntilSuccesful>
+            <RetryUntilSuccesful num_attempts="99999" name="BuoyRepeater">
+                <Sequence>
+                    <Action time="5" ID="MoveForward"/>
+                    <Condition ID="SeeBuoy"/>
+                    <Sequence>
+                        <Action heading="0" ID="FindBuoy"/>
+                        <RetryUntilSuccesful num_attempts="10">
+                            <Sequence>
+                                <Action heading="0" ID="AdjustHeading"/>
+                                <Action ID="AdjustAltitude" name="AdjustAltitudeToBuoy"/>
+                                <Action time="5" ID="MoveForward"/>
+                                <Condition distance="1" ID="CheckDistance" name="CheckDistanceFromBuoy"/>
+                            </Sequence>
+                        </RetryUntilSuccesful>
+                        <Action time="10" ID="MoveForward"/>
+                        <Action time="10" ID="MoveBackward"/>
+                        <Action distance="3" ID="MoveUp"/>
+                    </Sequence>
+                </Sequence>
+            </RetryUntilSuccesful>
+            <RetryUntilSuccesful num_attempts="99999">
+                <Sequence>
+                    <Action time="5" ID="MoveForward"/>
+                    <Condition ID="SeeOctagon"/>
+                    <Sequence>
+                        <Action heading="0" ID="FindOctagon"/>
+                        <RetryUntilSuccesful num_attempts="10">
+                            <Sequence>
+                                <Action degree="0" ID="AdjustYaw"/>
+                                <Action time="5" ID="MoveForward"/>
+                                <Condition distance="2" ID="CheckDistance" name="CheckDistanceFromOctagon"/>
+                            </Sequence>
+                        </RetryUntilSuccesful>
+                    </Sequence>
+                </Sequence>
+            </RetryUntilSuccesful>
+            <RetryUntilSuccesful num_attempts="99999">
+                <Sequence>
+                    <Action distance="1" ID="MoveUp"/>
+                    <Condition depth="-2" ID="CheckDepth"/>
+                </Sequence>
+            </RetryUntilSuccesful>
+        </SequenceStar>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <BehaviorTree ID="ObjectFinder">
+        <RetryUntilSuccesful num_attempts="10">
+            <Sequence>
+                <Action heading="0" ID="AdjustHeading"/>
+                <Action ID="AdjustAltitude"/>
+                <Action time="5" ID="MoveForward"/>
+                <Condition distance="1" ID="CheckDistance" name="CheckDistanceFromBuoy"/>
+            </Sequence>
+        </RetryUntilSuccesful>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="AdjustAltitude"/>
+        <Action ID="AdjustHeading">
+            <input_port name="heading" default="0">what direction it should orient in (default is 0, trying to symbolize straight)</input_port>
+        </Action>
+        <Action ID="AdjustYaw">
+            <input_port name="degree" default="0">how much to turn by</input_port>
+        </Action>
+        <Condition ID="CheckDepth">
+            <input_port name="depth" default="-2">how deep in the water it is (meters)</input_port>
+        </Condition>
+        <Condition ID="CheckDistance">
+            <input_port name="distance" default="0">maximum length(meters) that the gap can be between sub and obstacle</input_port>
+        </Condition>
+        <Action ID="FindBuoy">
+            <output_port name="heading" default="0">what heading the buoy is in</output_port>
+        </Action>
+        <Action ID="FindGateDetector"/>
+        <Action ID="FindOctagon">
+            <output_port name="heading" default="0">heading that the octagon is in</output_port>
+        </Action>
+        <Action ID="FindSymbol">
+            <output_port name="heading" default="0">this should output to AdjustHeading, to determine what heading to orient in, to reach the symbol</output_port>
+        </Action>
+        <Action ID="MoveBackward">
+            <input_port name="time" default="0">duration of going backward (seconds)</input_port>
+        </Action>
+        <Action ID="MoveForward">
+            <input_port name="time" default="0">how long the sub should move forward for</input_port>
+        </Action>
+        <Action ID="MoveUp">
+            <input_port name="distance" default="0">distance to move up</input_port>
+        </Action>
+        <SubTree ID="ObjectFinder"/>
+        <Condition ID="SeeBuoy"/>
+        <Condition ID="SeeOctagon"/>
+        <Action ID="Spin360"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
+
