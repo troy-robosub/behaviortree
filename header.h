@@ -18,14 +18,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto time = getInput<float>("time");
-    if (!time) 
-    {
-      throw BT::RuntimeError("missing required input [time]: ", time.error());
-    }
-
-    std::cout << "Moving forward for " << time.value() << " seconds" << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -46,14 +38,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -89,14 +73,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -131,14 +107,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -158,14 +126,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -185,14 +145,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -207,7 +159,6 @@ public:
 
   NodeStatus tick() override
   {
-    std::cout << "Adjusting Altitude" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -227,14 +178,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -254,14 +197,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -281,14 +216,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto heading = getInput<float>("heading");
-    if (!heading) 
-    {
-      throw BT::RuntimeError("missing required input [heading]: ", heading.error());
-    }
-
-    std::cout << "Adjusting Heading to " << heading.value() << std::endl;
-
     return NodeStatus::SUCCESS;
   }
 };
@@ -308,17 +235,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto distance = getInput<float>("distance");
-    if (!distance)
-    {
-      throw BT::RuntimeError("missing required input [distance]: ", distance.error());
-    }
-
-    std::cout << "Checking distance: " << distance.value() << " meters" << std::endl;
-
-    // Here, replace `false` with the actual condition check.
-    // If distance is less than or equal to the input, return SUCCESS.
-    // Otherwise, return FAILURE.
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -341,15 +257,6 @@ public:
 
   NodeStatus tick() override
   {
-    auto depth = getInput<float>("depth");
-    if (!depth)
-    {
-      throw BT::RuntimeError("missing required input [depth]: ", depth.error());
-    }
-
-    std::cout << "Checking depth: " << depth.value() << " meters" << std::endl;
-
-    // Replace `false` with the actual condition check.
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -366,20 +273,11 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("depth") };
+    return { InputPort<float>("buoy") };
   }
 
   NodeStatus tick() override
   {
-    auto depth = getInput<float>("depth");
-    if (!depth)
-    {
-      throw BT::RuntimeError("missing required input [depth]: ", depth.error());
-    }
-
-    std::cout << "Checking depth: " << depth.value() << " meters" << std::endl;
-
-    // Replace `false` with the actual condition check.
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -396,20 +294,11 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("depth") };
+    return { InputPort<float>("octagon") };
   }
 
   NodeStatus tick() override
   {
-    auto depth = getInput<float>("depth");
-    if (!depth)
-    {
-      throw BT::RuntimeError("missing required input [depth]: ", depth.error());
-    }
-
-    std::cout << "Checking depth: " << depth.value() << " meters" << std::endl;
-
-    // Replace `false` with the actual condition check.
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
