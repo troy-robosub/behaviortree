@@ -557,31 +557,6 @@ public:
 };
 */
 int main() {
-    /*
-    // Branch 1
-    FindGate findGate;
-    while (!findGate.execute()) {
-        sleep(1);
-    }
     
-    //Branch 2
-    EnterGate enterGate;
-    while (!enterGate.execute()) {
-        sleep(1);
-    }
-
-    //Branch 3
-    BuoyRepeater buoyRepeater;
-    buoyRepeater.execute();
-
-    // Branch 4
-    OctagonRepeater octagonRepeater;
-    octagonRepeater.execute();
-
-    //Branch 5
-    Conclude conclude;
-    while (!conclude.execute()) {
-        sleep(1);
-        */
     }
 }
