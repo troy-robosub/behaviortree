@@ -3,6 +3,12 @@
 #include "behaviortree_cpp_v3/action_node.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
+/*
+- change NodeStatus tick()
+- change sdt::cout stuff if you wanna print something more useful
+- change "return { InputPort<float>("thing") };" based on return type or if necessary
+*/
+
 // Action Node
 class MoveForward : public SyncActionNode
 {
@@ -18,6 +24,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "MoveForward" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -33,11 +40,12 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("heading") };
+    return { InputPort<float>("gate") };
   }
 
   NodeStatus tick() override
   {
+    std::cout << "FindGateDetector" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -45,15 +53,7 @@ public:
   // Override the virtual function tick()
   NodeStatus tick() override
   {
-    Expected<std::string> msg = getInput<std::string>("message");
-    // Check if expected is valid. If not, throw its error
-    if (!msg)
-    {
-      throw BT::RuntimeError("missing required input [message]: ", 
-                              msg.error() );
-    }
-    // use the method value() to extract the valid message.
-    std::cout << "Robot says: " << msg.value() << std::endl;
+    std::cout << "Spin360" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -73,6 +73,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "AdjustHeading" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -87,7 +88,7 @@ public:
 
   NodeStatus tick() override
   {
-    std::cout << "Spinning 360 degrees" << std::endl;
+    std::cout << "Spin360" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -107,6 +108,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "FindSymbol" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -126,6 +128,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "FindBuoy" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -145,6 +148,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "FindOctagon" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -159,6 +163,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "AdjustAltitude" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -173,11 +178,12 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("heading") };
+    return { InputPort<float>("yaw") };
   }
 
   NodeStatus tick() override
   {
+    std::cout << "AdjustYaw" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -192,11 +198,12 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("heading") };
+    return { InputPort<float>("backwards") };
   }
 
   NodeStatus tick() override
   {
+    std::cout << "MoveBackwards" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -211,11 +218,12 @@ public:
 
   static PortsList providedPorts()
   {
-    return { InputPort<float>("heading") };
+    return { InputPort<float>("up") };
   }
 
   NodeStatus tick() override
   {
+    std::cout << "MoveUp" << std::endl;
     return NodeStatus::SUCCESS;
   }
 };
@@ -235,6 +243,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "CheckDistance" << std::endl;
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -257,6 +266,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "CheckDepth" << std::endl;
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -278,6 +288,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "SeeBuoy" << std::endl;
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
@@ -299,6 +310,7 @@ public:
 
   NodeStatus tick() override
   {
+    std::cout << "SeeOctagon" << std::endl;
     bool condition = false;
 
     return condition ? NodeStatus::SUCCESS : NodeStatus::FAILURE;
