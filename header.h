@@ -557,6 +557,5 @@ public:
 };
 */
 int main() {
-    
-    }
+  
 }
