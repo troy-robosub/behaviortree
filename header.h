@@ -4,9 +4,9 @@
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 /*
-- change NodeStatus tick()
+- change NodeStatus tick() (you cound put logic there or in the cpp file)
 - change sdt::cout stuff if you wanna print something more useful
-- change "return { InputPort<float>("thing") };" based on return type or if necessary
+- change "return { InputPort<float>("thing") };" stuff based on return type or if necessary
 */
 
 // Action Node
